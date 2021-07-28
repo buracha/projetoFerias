@@ -10,7 +10,7 @@ public class testaConeccao {
             new ConnectionFactory().getConnection();
             JOptionPane.showMessageDialog(null, "Conectado com sucesso");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro ao conectar: /n"+e);
+            JOptionPane.showMessageDialog(null, "Erro ao conectar: \n"+e);
         }
     }
 }
