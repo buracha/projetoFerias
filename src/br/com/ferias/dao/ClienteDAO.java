@@ -5,7 +5,12 @@ import br.com.ferias.jdbc.ConnectionFactory;
 import br.com.ferias.model.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import jdk.internal.org.objectweb.asm.tree.TryCatchBlockNode;
 
 public class ClienteDAO {
     
@@ -43,4 +48,42 @@ public class ClienteDAO {
 
         }
     }
+    
+    public List<Cliente> listarClientes(){
+        try {
+            List<Cliente> clientes = new ArrayList<>();
+            String sql = "SELECT * FROM tb_clientes";
+            PreparedStatement stmt = con.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+            
+            while(rs.next()){
+                Cliente cli = new Cliente();
+                cli.setId(rs.getInt("id"));
+                cli.setNome(rs.getString("nome"));
+                cli.setRg(rs.getString("rg"));
+                cli.setCpf(rs.getString("cpf"));
+                cli.setEmail(rs.getString("email"));
+                cli.setTelefone(rs.getString("telefone"));
+                cli.setCelular(rs.getString("celular"));
+                cli.setCep(rs.getString("cep"));
+                cli.setEndereco(rs.getString("endereco"));
+                cli.setNumero(rs.getInt("Numero"));
+                cli.setComplemento(rs.getString("complemento"));
+                cli.setBairro(rs.getString("bairro"));
+                cli.setCidade(rs.getString("cidade"));
+                cli.setEstado(rs.getString("estado"));
+                
+                clientes.add(cli);
+                
+                return clientes;
+            }
+        }catch (SQLException e){ 
+            JOptionPane.showMessageDialog(null, "Erro ao executar consulta: \n"+e);
+            return null;
+            
+        }
+        return null;
+    
+    }
+ 
 }
